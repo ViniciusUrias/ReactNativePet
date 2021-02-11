@@ -1,14 +1,28 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Container, Header, Body, User, Icon, Description, Bottom, Comment, Buttons, Content, PetPhoto, ContentDesc, PhotoDesc, Time } from './style'
-import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, VirtualizedList, SafeAreaView } from 'react-native';
+import { FlatList, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import FeedPosts from '../../components/FeedPosts/Posts'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
+
+import { Container, Header, Body, User, Icon, Description, Bottom, Comment, Buttons, Content, PetPhoto, ContentDesc, PhotoDesc, Time } from '../../pages/Feed/style'
+
 
 
 
 export default function Feed() {
+    const Posts = [
+        { id: '1', title: "Perdi minha cachorra", photoDesc: 'No bairro santa maria', postImg: (require('../../assets/abandono.jpg')) },
+        { id: '2', title: "me", photoDesc: 'me' },
+        { id: '3', title: "me", photoDesc: 'me' },
+        { id: '4', title: "me", photoDesc: 'me' }
+
+
+    ]
+    console.log;
+
+
     return (
-        <Container>
+        <SafeAreaView >
             <Header>
                 <TouchableOpacity>
                     <FontAwesome5 name='bell' size={40} style={{ marginLeft: 10 }}></FontAwesome5>
@@ -17,29 +31,13 @@ export default function Feed() {
                     <Ionicons name='add-circle' size={40} style={{ marginRight: 5 }}></Ionicons>
                 </TouchableOpacity>
             </Header>
-            <Body>
-
-                <Time>15/12/2021 as 17:42pm</Time>
-                <User>
-                    <Icon source={require('../../assets/vibe.jpg')}></Icon>
-                    <Description>Procuro minha gata chamada mel ela desapareceu no cu de quem ta lendo</Description>
-                </User>
-
-                <Content>
-                    <PetPhoto source={require('../../assets/pet.png')}></PetPhoto>
-                </Content>
-
-                <ContentDesc>
-                    <PhotoDesc>Descrição</PhotoDesc>
-                </ContentDesc>
-
-                <Bottom>
-                    <Comment title="Buscar" placeholder="Escrever Comentário"></Comment>
-                </Bottom>
-                <Buttons></Buttons>
-            </Body>
-
-
-        </Container>
+            <FlatList
+                keyExtractor={props => props.id}
+                data={Posts}
+                renderItem={({ item }) => <FeedPosts title={`${item.title}`} photoDesc={`${item.photoDesc}`} postImg={`${item.postImg}`} ></FeedPosts>}
+            >
+            </FlatList>
+        </SafeAreaView>
     );
+
 }

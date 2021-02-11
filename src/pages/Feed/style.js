@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.ScrollView`
-    width: 100%;
-    height: 100%;
     background-color: #FFF;
+    margin-bottom: 40px;
+    flex: 1;
 `;
 
 export const Header = styled.View`
