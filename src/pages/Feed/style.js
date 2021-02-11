@@ -3,15 +3,15 @@ import styled from 'styled-components';
 export const Container = styled.ScrollView`
     background-color: #FFF;
     margin-bottom: 40px;
-    flex: 1;
 `;
 
 export const Header = styled.View`
     height: 50px;
     background-color: #9ca9e2;
     flex-direction: row;
-    justify-content: space-between;
-    padding: 4px;
+    padding: 7px;
+    display: flex;
+    
 
 `;
 

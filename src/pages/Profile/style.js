@@ -69,11 +69,9 @@ export const ButtonView = styled.View`
 export const ButtonsCard = styled.TouchableOpacity`
     width: 33%;
     height: 100px;
-    background-color: #FFF;
+    background-color:  #9891ee ;
     margin: 30px;
     border-radius: 20px;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
     justify-content: flex-end;
     align-items: center;
     elevation: 7;
@@ -84,7 +82,6 @@ export const ButtonsCard = styled.TouchableOpacity`
 export const ButtonsText = styled.Text`
     width: 100%;
     text-align: center;
-    border-radius: 20px;
     font-family: 'Montserrat_400Regular';
     font-size: 10px;
 

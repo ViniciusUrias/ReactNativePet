@@ -3,14 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { Topo, Photo, Container, Title, Add, ButtonsCard, ButtonsText, ButtonView, Scroll, ButtonImg } from './style';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import UserPets from '../../components/Pets/UserPets'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons'
-
-import Feed from '../Feed/Feed';
-import Login from '../Login/Login'
-
-
-
 
 export default function Profile() {
     return (
