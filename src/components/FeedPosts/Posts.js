@@ -1,7 +1,4 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
-
 import { Container, Header, Body, User, Icon, Description, Bottom, Comment, Buttons, Content, PetPhoto, ContentDesc, PhotoDesc, Time } from '../../pages/Feed/style'
 
 export default function FeedPosts(props) {

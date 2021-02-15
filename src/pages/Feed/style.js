@@ -21,6 +21,7 @@ export const Body = styled.View`
     margin: 20px;
     elevation: 10;
     border-radius: 20px;
+    margin-bottom: 30px;
 `;
 
 export const User = styled.View`

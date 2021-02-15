@@ -1,36 +1,43 @@
-import React from 'react';
-import { View, Text, VirtualizedList, SafeAreaView, KeyboardAvoidingView } from 'react-native';
-import { FlatList, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import { KeyboardAvoidingView, Button } from 'react-native';
+import { FlatList, } from 'react-native-gesture-handler';
 import FeedPosts from '../../components/FeedPosts/Posts'
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
-
 import { Header } from '../../pages/Feed/style'
 import FeedModal from '../../components/FeedModal/FeedModal'
+import api from '../../services/api';
+import { useState } from 'react';
 
+export default function FeedTest() {
+    const [posts, setPosts] = useState({});
 
+    useEffect(() => {
+        const userPosts =
+            api.get('/posts')
+                .then(response => setPosts(response.data))
+                .then(JSON.stringify(posts))
 
+        return () => handlePosts(userPosts);
 
+    }, []);
 
+    function handlePosts({ posts }) {
+        const { title, description, photo } = posts;
 
-export default function Feed() {
-    const Posts = [
-        { id: '1', title: "Perdi minha cachorra", photoDesc: 'No bairro santa maria', postImg: (require('../../assets/abandono.jpg')) },
-        { id: '2', title: "me", photoDesc: 'me' },
-    ]
-
+        setPosts({ title, description, photo });
+    }
     return (
         <KeyboardAvoidingView >
-
             <Header>
                 <FeedModal></FeedModal>
             </Header>
             <FlatList
                 keyExtractor={props => props.id}
-                data={Posts}
-                renderItem={({ item }) => <FeedPosts title={`${item.title}`} photoDesc={`${item.photoDesc}`} postImg={`${item.postImg}`} ></FeedPosts>}
+                data={posts}
+                renderItem={({ item }) => <FeedPosts title={`${item.title}`} photoDesc={`${item.description}`} postImg={`${item.photo}`} ></FeedPosts>}
             >
             </FlatList>
         </KeyboardAvoidingView>
     );
-
 }
+
+
