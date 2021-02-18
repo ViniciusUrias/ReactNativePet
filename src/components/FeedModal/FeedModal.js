@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
-import { Button, StyleSheet, View, Text, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
-import { ScrollView, TextInput, TouchableOpacity, } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity, StyleSheet, View, Text, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { useForm } from 'react-hook-form';
 import Modal from 'react-native-modal';
+import api from '../../services/api';
 
 
 export default function FeedModal() {
-
+    const [form, setForm] = useState([register]);
+    const { register, handleSubmit, setValue, } = useForm({ defaultValues: { title: '', description: '' } });
     const [isModalVisible, setModalVisible] = useState(false);
+
+    useEffect(() => {
+        register({ title: 'title' })
+        register({ description: 'description' })
+    }, [register]);
+
+    const onSubmit = data => {
+        api.post('/posts/1/create', { title: 'title', description: 'description' })
+            .then(JSON.stringify(data))
+            .then(setForm(data));
+        console.log(data);
+    }
 
     const toogleModal = () => {
         setModalVisible(!isModalVisible);
     }
-    const closeModal = () => {
-        setModalVisible(!isModalVisible);
-    }
-
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity onPress={toogleModal} title="Nova Publicação" style={styles.ButtonOpen}>
@@ -28,10 +39,17 @@ export default function FeedModal() {
                 onBackdropPress={() => setModalVisible(false)}>
 
                 <View style={styles.Card}>
-
                     <View style={styles.pubCard}>
                         <Text style={styles.intro}>Criar publicação</Text>
-                        <TextInput multiline={true} style={styles.titleInput} placeholder="Titulo"></TextInput>
+                        <TextInput
+                            id="title"
+                            name="title"
+                            ref={register("title")}
+                            onChangeText={text => setValue("title", text, { shouldValidate: true })}
+                            multiline={true}
+                            style={styles.titleInput}
+                            placeholder="Titulo">
+                        </TextInput>
                     </View>
 
                     <View style={styles.btnView}>
@@ -41,11 +59,18 @@ export default function FeedModal() {
                     </View>
 
                     <KeyboardAvoidingView style={styles.descView}>
-                        <TextInput multiline={true} style={styles.descInput} placeholder="Nos descreva com detalhes sobre o caso do seu Pet"></TextInput>
+                        <TextInput
+                            id="description"
+                            name="description"
+                            ref={register("description")}
+                            onChangeText={text => setValue("description", text)}
+                            multiline={true}
+                            style={styles.descInput}
+                            placeholder="Nos descreva com detalhes sobre o caso do seu Pet"></TextInput>
                     </KeyboardAvoidingView>
                     <View style={styles.buttons}>
                         <TouchableOpacity onPress={toogleModal} style={styles.ButtonClose}><Text style={{ color: 'white', fontFamily: 'Montserrat_400Regular' }}>Fechar</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.ButtonClose}><Text style={{ color: 'white', fontFamily: 'Montserrat_400Regular' }}> Criar</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.ButtonClose}><Text style={{ color: 'white', fontFamily: 'Montserrat_400Regular' }}> Criar</Text></TouchableOpacity>
                     </View>
                 </View>
 
@@ -160,7 +185,8 @@ const styles = StyleSheet.create({
     buttons: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        bottom: -80
+        bottom: -80,
+        width: 120
     }
 
 

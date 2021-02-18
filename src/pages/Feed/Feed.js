@@ -16,15 +16,11 @@ export default function FeedTest() {
                 .then(response => setPosts(response.data))
                 .then(JSON.stringify(posts))
 
-        return () => handlePosts(userPosts);
+        return () => userPosts;
 
     }, []);
 
-    function handlePosts({ posts }) {
-        const { title, description, photo } = posts;
 
-        setPosts({ title, description, photo });
-    }
     return (
         <KeyboardAvoidingView >
             <Header>
