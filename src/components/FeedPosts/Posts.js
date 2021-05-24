@@ -6,7 +6,7 @@ export default function FeedPosts(props) {
         <Container>
 
             <Body>
-                <Time>15/12/2021 as 17:42pm</Time>
+                <Time>{props.created_at}</Time>
                 <User>
                     <Icon source={require('../../assets/vibe.jpg')}></Icon>
                     <Description>{props.title}</Description>

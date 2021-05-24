@@ -6,6 +6,7 @@ import Modal from 'react-native-modal';
 import api from '../../services/api';
 
 
+
 export default function FeedModal() {
     const [form, setForm] = useState([register]);
     const { register, handleSubmit, setValue, } = useForm({ defaultValues: { title: '', description: '' } });
@@ -17,7 +18,7 @@ export default function FeedModal() {
     }, [register]);
 
     const onSubmit = data => {
-        api.post('/posts/1/create', { title: 'title', description: 'description' })
+        api.post('/posts/1/create', { title: `${data.title}`, description: `${data.description}` })
             .then(JSON.stringify(data))
             .then(setForm(data));
         console.log(data);
@@ -33,10 +34,12 @@ export default function FeedModal() {
             </TouchableOpacity>
             <Modal animationIn="fadeIn"
                 hideModalContentWhileAnimating={true}
-                animationOut="fadeOutDown"
+                animationIn="zoomIn"
+                animationOut="zoomOut"
                 isVisible={isModalVisible}
                 style={{ margin: 10 }}
                 onBackdropPress={() => setModalVisible(false)}>
+
 
                 <View style={styles.Card}>
                     <View style={styles.pubCard}>
@@ -82,7 +85,8 @@ export default function FeedModal() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.5
+        flex: 0.5,
+        flexDirection: 'row'
     },
     intro: {
         textAlign: 'center',
@@ -110,7 +114,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         elevation: 10
-
+    },
+    ButtonAtt: {
+        padding: 0,
+        height: 40,
+        backgroundColor: '#9db9e2',
+        borderRadius: 20,
+        color: '#FFF',
+        width: 150,
+        marginLeft: 10
 
     },
     upload: {
